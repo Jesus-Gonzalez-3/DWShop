@@ -1,0 +1,35 @@
+﻿<EditForm Model="@EditProductCommand" OnValidSubmit="UpdateAsync">
+    <FluentValidationValidator/>
+    <MudDialog>
+        <!--<TitleContent>
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Add" />
+            </MudText>
+        </TitleContent>-->
+        <DialogContent>
+            <MudGrid>
+                <MudItem md="6" lg="6" xs="12" xl="12">
+                    <MudTextField For="()=> EditProductCommand.Name" @bind-Value="EditProductCommand.Name" Label="Nombre"></MudTextField>
+                </MudItem>
+                <MudItem md="6" lg="6" xs="12" xl="12">
+                    <MudTextField For="()=> EditProductCommand.Category" @bind-Value="EditProductCommand.Category" Label="Categoria"></MudTextField>
+                </MudItem>
+                <MudItem md="6" lg="6" xs="12" xl="12">
+                    <MudTextField For="()=> EditProductCommand.Description" @bind-Value="EditProductCommand.Description" Label="Descripción"></MudTextField>
+                </MudItem>
+                <MudItem md="6" lg="6" xs="12" xl="12">
+                    <MudTextField For="()=> EditProductCommand.Summary" @bind-Value="EditProductCommand.Summary" Label="Resumen"></MudTextField>
+                </MudItem>
+                <MudItem md="6" lg="6" xs="12" xl="12">
+                    <MudTextField For="()=> EditProductCommand.Price" @bind-Value="EditProductCommand.Price" Label="Precio"></MudTextField>
+                </MudItem>
+                <MudItem md="6" lg="6" xs="12" xl="12">
+                    <MudTextField For="()=> EditProductCommand.PhotoURL" @bind-Value="EditProductCommand.PhotoURL" Label="PhotoURL"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" StartIcon="@Icons.Material.Filled.Save"> Guardar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>

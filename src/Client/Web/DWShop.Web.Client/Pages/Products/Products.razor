@@ -1,0 +1,118 @@
+﻿@page "/productos"
+@attribute [Authorize]
+@using DWShop.Application.Features.Catalog.Commands.Delete;
+@using DWShop.Application.Features.Catalog.Commands.Update;
+@using DWShop.Application.Responses.Catalog;
+@using DWShop.Client.Infrastructure.Managers.Products.Get
+
+
+<MudText Typo="Typo.h2">Productos</MudText>
+<MudGrid>
+    <MudItem md="12">
+        <MudButton @onclick="@(()=> InvokeModal())" StartIcon="@Icons.Material.Filled.Add"> Producto</MudButton>
+    </MudItem>
+</MudGrid>
+<MudTable Items="@Elements">
+    <HeaderContent>
+        <MudTh>Nombre</MudTh>
+        <MudTh>Categoría</MudTh>
+        <MudTh>Descripción</MudTh>
+        <MudTh> Resumen</MudTh>
+        <MudTh> Precio</MudTh>
+        <MudTh> Accciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombre">@context.Name</MudTd>
+        <MudTd DataLabel="Categoría">@context.Category</MudTd>
+        <MudTd DataLabel="Descripcion">@context.Description</MudTd>
+        <MudTd DataLabel="Resumen">@context.Summary</MudTd>
+        <MudTd DataLabel="Precio">@context.Price</MudTd>
+        <MudTd DataLabel="Acciones">
+            <MudMenu Label="Acciones" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+                <MudMenuItem @onclick="@(()=> InvokeModal(context.Id))">Editar</MudMenuItem>
+                <MudMenuItem @onclick="(()=> InvokeMessage(context.Id, context.Name))">Eliminar</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+<DWShop.Web.Library.Component1></DWShop.Web.Library.Component1>
+
+@code {
+
+    [Inject]
+    public IGetProductsManager productManager { get; set; }
+
+    public IEnumerable<ProductResponse> Elements { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Reset();
+    }
+
+    private async Task Reset()
+    {
+        var productsResponse = await productManager.GetAllProducts();
+        if (productsResponse.Succeded)
+        {
+            Elements = productsResponse.Data;
+        }
+    }
+
+    private async Task InvokeModal(int id = 0)
+    {
+        var parameters = new DialogParameters();
+        if (id != 0)
+        {
+            var product = Elements.FirstOrDefault(x => x.Id == id);
+            if (product is not null)
+            {
+                parameters.Add(nameof(AddEditProduct.EditProductCommand), new UpdateCatalogCommand()
+                    {
+                        Id = id,
+                        Category = product.Category,
+                        Description = product.Description,
+                        Name = product.Name,
+                        PhotoURL = product.PhotoURL,
+                        Price = product.Price,
+                        Summary = product.Summary
+                    });
+                var options = new DialogOptions() { CloseButton = true };
+                var dialog = _dialogService.Show<AddEditProduct>("Editar", parameters, options);
+                var result = await dialog.Result;
+                if (!result.Cancelled)
+                    await Reset();
+
+            }
+        }
+        else
+        {
+            parameters.Add(nameof(AddEditProduct.EditProductCommand), new UpdateCatalogCommand()
+                {
+                    Id = 0
+                });
+            var options = new DialogOptions() { CloseButton = true };
+            var dialog = _dialogService.Show<AddEditProduct>("Agregar",parameters, options);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+                await Reset();
+        }
+
+    }
+
+    private async Task InvokeMessage(int id, string productName)
+    {
+        var parameters = new DialogParameters();
+        parameters.Add(nameof(DeleteProduct.DeleteProductCommand), new DeleteCatalogCommand()
+            {
+                Id = id,
+                Name = productName
+
+            });
+        var options = new DialogOptions() { CloseButton = true };
+        var dialog = _dialogService.Show<DeleteProduct>("Eliminar", parameters, options);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+            await Reset();
+    }
+}

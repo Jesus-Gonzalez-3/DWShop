@@ -1,0 +1,56 @@
+﻿using MudBlazor;
+
+namespace DWShop.Web.Infrastructure.Settings
+{
+    public static class DWTheme
+    {
+        public static MudTheme DefautTheme = new()
+        {
+            Palette = new()
+            {
+                Primary = "#009688",
+                AppbarBackground = "#009688",
+                Background = Colors.Cyan.Lighten5,
+                DrawerBackground = "#009688",
+                Success = "#2196F3",
+                DrawerText = "#FFFFFF",
+                DrawerIcon= "#FFFFFF",
+                AppbarText= "#FFFFFF",
+            }
+            /*Palette = new()
+            {
+                Primary = "#009688",
+                AppbarBackground = "#E91E63",
+                Background = Colors.Cyan.Lighten5,
+                DrawerBackground = "#D81B60",
+                Success = "#2196F3",
+                DrawerText = "#FFFFFF",
+                DrawerIcon = "#FFFFFF",
+                AppbarText = "#FFFFFF",
+            }*/
+        };
+
+        public static MudTheme DarkTheme = new MudTheme()
+        {
+            Palette = new Palette()
+            {
+                Primary = "#1E88E5",
+                Success = "#007E33",
+                Black = "#27272f",
+                Background = "#32333d",
+                BackgroundGrey = "#27272f",
+                Surface = "#373740",
+                DrawerBackground = "#27272f",
+                DrawerText = "rgba(255,255,255, 0.50)",
+                AppbarBackground = "#373740",
+                AppbarText = "rgba(255,255,255, 0.70)",
+                TextPrimary = "rgba(255,255,255, 0.70)",
+                TextSecondary = "rgba(255,255,255, 0.50)",
+                ActionDefault = "#adadb1",
+                ActionDisabled = "rgba(255,255,255, 0.26)",
+                ActionDisabledBackground = "rgba(255,255,255, 0.12)",
+                DrawerIcon = "rgba(255,255,255, 0.50)"
+            }
+        };
+    }
+}

@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@currentTheme"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<AuthorizeView>
+    <NotAuthorized>
+        @Body
+    </NotAuthorized>
+    <Authorized>
+        <MudLayout>
+            <MainBody onDarkMode="@DarkMode">
+                @Body
+            </MainBody>
+        </MudLayout>
+    </Authorized>
+</AuthorizeView>

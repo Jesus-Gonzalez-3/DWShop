@@ -1,0 +1,21 @@
+﻿<EditForm Model="@DeleteProductCommand" OnValidSubmit="DeleteAsync" >
+    <MudDialog>
+        <TitleContent>
+            <MudText Typo="Typo.h6">
+                Eliminar
+            </MudText>
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem md="6" lg="6" xs="12" xl="12">
+                    <MudTextField For="()=> DeleteProductCommand.Id" @bind-Value="DeleteProductCommand.Id" InputType="InputType.Hidden" Style="display:none"></MudTextField>
+                    <MudTextField For="()=> DeleteProductCommand.Name" @bind-Value="DeleteProductCommand.Name" InputType="InputType.Hidden" Style="display:none"></MudTextField>
+                    <MudText Typo="Typo.h5">Estas seguro que deseas eliminar el producto @DeleteProductCommand.Name</MudText>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Color="Color.Success" StartIcon="@Icons.Material.Filled.Check"> Aceptar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
