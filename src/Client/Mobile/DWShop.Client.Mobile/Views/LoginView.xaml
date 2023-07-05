@@ -11,9 +11,9 @@
         </Grid.RowDefinitions>
         <Image Source="Images/dotnet_bot" HorizontalOptions="Center" VerticalOptions="Center" />
         <VerticalStackLayout Grid.Row="1" Margin="20">
-            <Entry Placeholder="Usuario"/>
-            <Entry Placeholder="Contraseña" IsPassword="True"/>
+            <Entry Placeholder="Usuario" Text="{Binding LoginModel.UserName}"/>
+            <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding LoginModel.Password}"/>
         </VerticalStackLayout>
-        <Button Text="Iniciar Sesion" Grid.Row="2" VerticalOptions="Center"/>
+        <Button Text="Iniciar Sesion" Grid.Row="2" VerticalOptions="Center" Command="{Binding LoginCommand}"/>
     </Grid>
 </ContentPage>

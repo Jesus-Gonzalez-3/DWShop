@@ -1,6 +1,12 @@
-﻿using DWShop.Application.Features.Identitty.Commands.Login;
+﻿using Android.App;
+using DWShop.Application.Features.Identitty.Commands.Login;
 using DWShop.Client.Infrastructure.Managers.Authentication;
+using DWShop.Client.Mobile.Models;
 using DWShop.Client.Mobile.ViewModels.Base;
+using DWShop.Client.Mobile.Views;
+using DWShop.Shared.Constants;
+using Microsoft.Maui.Controls;
+using System.Net.Http.Headers;
 using System.Windows.Input;
 
 namespace DWShop.Client.Mobile.ViewModels
@@ -8,22 +14,51 @@ namespace DWShop.Client.Mobile.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         private readonly IAuthenticationManager authenticationManager;
-
-        public LoginViewModel(IAuthenticationManager authenticationManager)
+        private LoginModel loginModel;
+        public LoginModel LoginModel
         {
+            get => loginModel;
+            set=> SetProperty(ref loginModel, value);
+        }
+        public ICommand LoginCommand { get; private set; }
+
+        public LoginViewModel(IAuthenticationManager authenticationManager, LoginModel loginModel, HttpClient httpClient, ProductListView productListView)
+        {
+
+            /*var token = SecureStorage.Default.GetAsync("Token").Result;
+
+            if (token is not null)
+            {
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(StorageConstants.Local.Scheme, token);
+            }*/
+
             this.authenticationManager = authenticationManager;
+            this.loginModel = loginModel;
             LoginCommand = new Command(async () =>
             {
                 var result = await authenticationManager.Login(
                     new LoginCommand
                     {
-                        UserName = "Admin",
-                        Password = "Admin"
+                        UserName = loginModel.UserName,
+                        Password = loginModel.Password,
                     }
                     );
+
+                if (result.Succeded)
+                {
+                    await SecureStorage.Default.SetAsync("Token", result.Data.Token);
+                    httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(StorageConstants.Local.Scheme, result.Data.Token);
+                    Microsoft.Maui.Controls.Application.Current.MainPage = productListView;
+                    return;
+                }
+
+                await Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("Error al Iniciar",
+                    "El usuario y la contraseña no son validos", "OK");
             });
         }
 
-        public ICommand LoginCommand { get; private set; }
+        
     }
 }
