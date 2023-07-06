@@ -5,25 +5,28 @@
              Title="ProductListView">
     <VerticalStackLayout>
         <ActivityIndicator Color="Blue" IsRunning="False"/>
-        <ListView IsPullToRefreshEnabled="True" IsRefreshing="False">
+        <ListView IsPullToRefreshEnabled="True" IsRefreshing="False" ItemsSource="{Binding Products}" RowHeight="100"
+                  ItemTapped="ListView_ItemTapped" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
-                            
+                        <Frame Margin="5" HasShadow="True" CornerRadius="5">
+                            <Grid>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
-                            
-                            <Image Aspect="AspectFill"/>
+
+                            <Image Aspect="AspectFill" Source="{Binding PhotoURL}"/>
                             
                             <VerticalStackLayout Grid.Column="1">
-                                <Label Text="Nombre"/>
-                                <Label Text="Precio"/>
+                                <Label Text="{Binding ProductName}" HorizontalOptions="CenterAndExpand"/>
+                                <Label Text="{Binding Price, StringFormat='Precio: {0:c}'}" HorizontalOptions="CenterAndExpand"/>
                             </VerticalStackLayout>
 
                         </Grid>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

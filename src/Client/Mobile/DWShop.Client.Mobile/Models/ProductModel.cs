@@ -16,8 +16,8 @@ namespace DWShop.Client.Mobile.Models
         private string productName;
         public string ProductName { get => productName; set => SetProperty(ref productName, value); }
 
-        private string phothoUrl;
-        public string PhothoUrl { get => phothoUrl; set => SetProperty(ref phothoUrl, value); }
+        private string photoURL;
+        public string PhotoURL { get => photoURL; set => SetProperty(ref photoURL, value); }
 
         private decimal price;
         public decimal Price { get => price; set => SetProperty(ref price, value); }
