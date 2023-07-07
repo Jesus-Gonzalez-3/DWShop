@@ -1,5 +1,4 @@
-﻿using Android.App;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using DWShop.Client.Mobile.Context;
 using DWShop.Client.Mobile.Messages;
 using DWShop.Client.Mobile.Models;
