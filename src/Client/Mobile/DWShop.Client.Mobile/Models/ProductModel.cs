@@ -1,15 +1,12 @@
 ﻿using DWShop.Client.Mobile.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SQLite;
 
 namespace DWShop.Client.Mobile.Models
 {
     public class ProductModel: ObservableObject
     {
         private int id;
+        [PrimaryKey]
         public int Id { get => id; set => SetProperty(ref id, value); }
 
 

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using DWShop.Application.Features.Identitty.Commands.Login;
 using DWShop.Client.Infrastructure.Managers.Authentication;
+using DWShop.Client.Mobile.Messages;
 using DWShop.Client.Mobile.Models;
 using DWShop.Client.Mobile.ViewModels.Base;
 using DWShop.Client.Mobile.Views;
@@ -21,7 +22,10 @@ namespace DWShop.Client.Mobile.ViewModels
         }
         public ICommand LoginCommand { get; private set; }
 
-        public LoginViewModel(IAuthenticationManager authenticationManager, LoginModel loginModel, HttpClient httpClient, ProductListView productListView)
+        public LoginViewModel(IAuthenticationManager authenticationManager, 
+            LoginModel loginModel,
+            HttpClient httpClient,
+            MainTabbedPage mainTabbedPage)
         {
             this.authenticationManager = authenticationManager;
             this.loginModel = loginModel;
@@ -42,9 +46,10 @@ namespace DWShop.Client.Mobile.ViewModels
                     new AuthenticationHeaderValue(StorageConstants.Local.Scheme, result.Data.Token);
 
 
-                    Microsoft.Maui.Controls.Application.Current.MainPage = new NavigationPage(productListView);
+                    Microsoft.Maui.Controls.Application.Current.MainPage = new NavigationPage(mainTabbedPage);
                     //Cargar Productos
                     WeakReferenceMessenger.Default.Send<string>(StorageConstants.Local.Cargar);
+                    WeakReferenceMessenger.Default.Send(new RefreshBasketMessage());
                     return;
                 }
 

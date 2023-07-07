@@ -19,5 +19,7 @@
             FontAttributes="Bold"
             Margin="10"
             />
+
+        <Button Text="Agregar a canasta" Command="{ Binding AddToBasketCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

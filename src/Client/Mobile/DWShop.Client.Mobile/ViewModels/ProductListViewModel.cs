@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -26,6 +27,7 @@ namespace DWShop.Client.Mobile.ViewModels
         public ObservableCollection<ProductModel> Products { get => products; set => SetProperty(ref products, value); }
 
         public ICommand DetailCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public ProductListViewModel(ProductModel productModel, IGetProductsManager productsManager, UtilityService utilityService,
             ProductView productView)
@@ -40,6 +42,7 @@ namespace DWShop.Client.Mobile.ViewModels
                     await LoadProducts();
                 });
             DetailCommand = new Command<ProductModel>(ShowDetail);
+            RefreshCommand = new Command<ProductListView>(async x=> { await LoadProducts(); });
         }
 
         public void ShowDetail(ProductModel productModel)

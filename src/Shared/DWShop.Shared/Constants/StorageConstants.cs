@@ -9,6 +9,9 @@
             public const string Scheme = "Bearer";
             public const string Check = "/api/Identity/Check";
             public const string Cargar = "Cargar producto";
+            public const string Add = "Added";
+            public const string OK= "Producto Agregado a la canasta";
+            public const string ERROR = "El producto ya se encuentra en la canasta";
         }
     }
 }
