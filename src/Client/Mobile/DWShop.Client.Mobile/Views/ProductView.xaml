@@ -36,5 +36,9 @@
             Margin="10"
             />
         <Button Text="Agregar a canasta" Command="{ Binding AddToBasketCommand}"/>
+
+        <Button Text="Tomar Foto" Command="{Binding TakePhotoCommand}"/>
+
+        <Button Text="Flash" Command="{Binding FlashCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

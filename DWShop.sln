@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWShop.Web.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWShop.Web.Library", "src\Client\Web\DWShop.Web.Library\DWShop.Web.Library.csproj", "{7C4B6B9E-4551-44BC-99BC-758F4480A7C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWShop.Client.Mobile", "src\Client\Mobile\DWShop.Client.Mobile\DWShop.Client.Mobile.csproj", "{0BDA517A-E9DB-44D7-BF1B-B284DF1F6C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWShop.Client.Mobile", "src\Client\Mobile\DWShop.Client.Mobile\DWShop.Client.Mobile.csproj", "{0BDA517A-E9DB-44D7-BF1B-B284DF1F6C1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

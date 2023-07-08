@@ -1,0 +1,44 @@
+﻿@page "/Pedidos"
+@attribute [Authorize]
+@using DWShop.Application.Features.Catalog.Commands.Delete;
+@using DWShop.Application.Features.Catalog.Commands.Update;
+@using DWShop.Application.Responses.Catalog;
+@using DWShop.Application.Responses.Pedidos;
+@using DWShop.Client.Infrastructure.Managers.Pedidos.Get;
+
+
+<MudText Typo="Typo.h2">Pedidos</MudText>
+
+<MudTable Items="@Elements">
+    <HeaderContent>
+        <MudTh>Nombre Usuario</MudTh>
+        <MudTh>Fecha</MudTh>
+        <MudTh>Total Compra</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="UserName">@context.UserName</MudTd>
+        <MudTd DataLabel="Fecha">@context.Fecha</MudTd>
+        <MudTd DataLabel="TotalPrice">@context.TotalPrice</MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+
+    [Inject]
+    public IGetPedidosManager pedidosManager { get; set; }
+
+    public IEnumerable<PedidosResponse> Elements { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await Reset();
+    }
+
+    private async Task Reset()
+    {
+        var productsResponse = await pedidosManager.GetAllPedidos();
+        if (productsResponse.Succeded)
+        {
+            Elements = productsResponse.Data;
+        }
+    }
+}
